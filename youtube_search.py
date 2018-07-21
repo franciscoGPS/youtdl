@@ -8,7 +8,6 @@ import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from google_auth_oauthlib.flow import InstalledAppFlow
-import ipdb as bp;
  
 
 # The CLIENT_SECRETS_FILE variable specifies the name of a file that contains
@@ -102,6 +101,8 @@ def search_first_video_id(client, **kwargs):
 
   try:
       video_id = response['items'][0]['id']['videoId']
+      if video_id == "None":
+        video_id = ""
   except IndexError as err:
       #bp.set_trace()
       print("video_id failed ", err, response )      
@@ -118,31 +119,3 @@ if __name__ == '__main__':
   os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
   client = get_authenticated_service()
   
-  """
-  search_list_by_keyword(client, 
-    part='snippet',
-    maxResults=1,
-    q='clint eastwood gorillaz',
-    type='video')
-  search_list_by_keyword(client, 
-    part='snippet',
-    maxResults=1,
-    q='Feel good gorillaz',
-    type='video')
-  search_list_by_keyword(client, 
-    part='snippet',
-    maxResults=1,
-    q='piano man billy joel',
-    type='video')
-  search_list_by_keyword(client, 
-    part='snippet',
-    maxResults=1,
-    q='el triste jose jose',
-    type='video')
-  """
-
-  search_first_video_id(client, 
-    part='snippet',
-    maxResults=1,
-    q='el triste jose jose',
-    type='video')

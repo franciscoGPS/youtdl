@@ -1,6 +1,7 @@
 import csv
-def make_ids_table(file_name, array):
-    ipdb.set_trace()
-    with open(file_name+".csv","w+") as my_csv:
-        csvWriter = csv.writer(my_csv,delimiter=',')
-        csvWriter.writerows(array)
+def make_ids_table(file_name, array, openmode):
+	with open(file_name+".csv",openmode) as my_csv:
+		csvWriter = csv.writer(my_csv,delimiter=",")
+		for line in array:
+			excel_line =line.split(",")
+			csvWriter.writerow(excel_line)
